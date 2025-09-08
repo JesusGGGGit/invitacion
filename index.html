@@ -20,7 +20,7 @@
     .container {
       position: relative;
       width: 100%;
-      max-width: 600px; /* limita ancho en móviles grandes */
+      max-width: 600px;
     }
 
     .poster {
@@ -31,12 +31,11 @@
       box-shadow: 0 4px 20px rgba(0,0,0,.5);
     }
 
-    .cta {
+    .cta, .map-btn {
       position: absolute;
-      bottom: 20px;
       left: 50%;
       transform: translateX(-50%);
-      padding: 4px 6px;
+      padding: 6px 12px;
       border-radius: 999px;
       border: none;
       font-weight: 600;
@@ -48,19 +47,21 @@
       transition: all .2s ease;
     }
 
-    .cta:hover {
+    .cta:hover, .map-btn:hover {
       transform: translateX(-50%) scale(1.05);
       box-shadow: 0 10px 40px rgba(0,0,0,.4);
     }
 
-    .hint {
-      font-size: 12px;
-      color: #aaa;
-      margin-top: 15px;
+    .cta {
+      bottom: 20px; /* botón confirmar abajo */
+    }
+
+    .map-btn {
+      bottom: 70px; /* botón ver mapa justo encima del confirmar */
     }
 
     @media (max-width: 400px) {
-      .cta {
+      .cta, .map-btn {
         font-size: 14px;
         padding: 4px 6px;
       }
@@ -68,17 +69,16 @@
   </style>
 </head>
 <body>
-  
   <div class="container">
-    
     <img class="poster" src="fondo.JPG" alt="Invitación Despedida de Soltero">
-      <a class="map-btn" href="https://maps.google.com/?q=25.591824,-100.265656" target="_blank">
-    Ver mapa
-  </a>
+
+    <a class="map-btn" href="https://maps.google.com/?q=25.591824,-100.265656" target="_blank">
+      Ver mapa
+    </a>
+
     <a class="cta" href="sms:+528182808866?&body=Confirmo%20mi%20asistencia%20a%20la%20despedida%20de%20soltero.">
       Confirmar invitación
     </a>
   </div>
- 
 </body>
 </html>
