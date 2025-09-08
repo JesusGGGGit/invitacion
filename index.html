@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Invitación – Despedida de Soltero</title>
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      background: #000;
+      font-family: sans-serif;
+      height: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+    }
+
+    .container {
+      position: relative;
+      width: 100%;
+      max-width: 600px; /* limita ancho en móviles grandes */
+    }
+
+    .poster {
+      width: 100%;
+      height: auto;
+      display: block;
+      border-radius: 12px;
+      box-shadow: 0 4px 20px rgba(0,0,0,.5);
+    }
+
+    .cta {
+      position: absolute;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      padding: 4px 6px;
+      border-radius: 999px;
+      border: none;
+      font-weight: 600;
+      font-size: 16px;
+      background: #ffffff;
+      color: #111;
+      text-decoration: none;
+      box-shadow: 0 8px 30px rgba(0,0,0,.25);
+      transition: all .2s ease;
+    }
+
+    .cta:hover {
+      transform: translateX(-50%) scale(1.05);
+      box-shadow: 0 10px 40px rgba(0,0,0,.4);
+    }
+
+    .hint {
+      font-size: 12px;
+      color: #aaa;
+      margin-top: 15px;
+    }
+
+    @media (max-width: 400px) {
+      .cta {
+        font-size: 14px;
+        padding: 4px 6px;
+      }
+    }
+  </style>
+</head>
+<body>
+  
+  <div class="container">
+    
+    <img class="poster" src="fondo.JPG" alt="Invitación Despedida de Soltero">
+      <a class="map-btn" href="https://maps.google.com/?q=25.591824,-100.265656" target="_blank">
+    Ver mapa
+  </a>
+    <a class="cta" href="sms:+528182808866?&body=Confirmo%20mi%20asistencia%20a%20la%20despedida%20de%20soltero.">
+      Confirmar invitación
+    </a>
+  </div>
+ 
+</body>
+</html>
