@@ -71,15 +71,49 @@
             margin-left: 5rem;
         }
 
+        @media (max-width: 480px) {
+            .header {
+                margin-top: 8rem;
+                margin-left: 2rem;
+            }
+        }
+
         .brandon {
             font-family: 'AwesomeLathusca', sans-serif;
-            font-size: clamp(80px, 25vw, 100px);
+            font-size: clamp(40px, 12vw, 100px);
             margin-bottom: 10px;
-            letter-spacing: 4px;
+            letter-spacing: 2px;
             color: #ffffff;
             text-transform: uppercase;
             line-height: 1;
+            text-align: left;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
+
+        @media (max-width: 480px) {
+            .brandon {
+                font-size: 42px;
+                letter-spacing: 1px;
+            }
+        }
+
+        @media (max-width: 320px) {
+            .brandon {
+                font-size: 32px;
+                letter-spacing: 0px;
+            }
+            .header {
+                margin-left: 1rem;
+            }
+        }
+
+@media (max-width: 480px) {
+    .brandon {
+        font-size: clamp(30px, 20vw, 60px);
+    }
+}
 
 .event-type {
     font-family: 'AnkoRegularItalic', serif;
@@ -226,7 +260,75 @@
     color: inherit;          /* toma el color del contenedor, en tu caso blanco */
 }
 
+/* Estilos para el Modal */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.7);
+}
+
+.modal-content {
+    background-color: #2c2c2c;
+    color: white;
+    margin: 15% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+    max-width: 500px;
+    border-radius: 10px;
+    position: relative;
+    font-family: 'AnkoRegularItalic', serif;
+}
+
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.close:hover,
+.close:focus {
+    color: white;
+    text-decoration: none;
+    cursor: pointer;
+}
+.modal-content p {
+    font-size: clamp(32px, 6vw, 40px);
+    line-height: 1.5;
+}
+
     </style>
+    <script>
+        // Funciones para el Modal
+        function openModal() {
+            document.getElementById("myModal").style.display = "block";
+        }
+
+        // Cuando el documento esté listo
+        document.addEventListener('DOMContentLoaded', function() {
+            var modal = document.getElementById("myModal");
+            var span = document.getElementsByClassName("close")[0];
+
+            // Cuando el usuario hace click en la X, cierra el modal
+            span.onclick = function() {
+                modal.style.display = "none";
+            }
+
+            // Cuando el usuario hace click fuera del modal, lo cierra
+            window.onclick = function(event) {
+                if (event.target == modal) {
+                    modal.style.display = "none";
+                }
+            }
+        });
+    </script>
 </head>
 <body>
     <div class="invitation">
@@ -250,9 +352,17 @@
                 <div class="organizers-title">Organizan</div>
                 <div>Gerardo Garza y Rolando Treviño</div>
             </div>
-<svg class="envelope" xmlns="http://www.w3.org/2000/svg" width="60" height="60" viewBox="0 0 24 24" fill="white">
+<svg class="envelope" onclick="openModal()" xmlns="http://www.w3.org/2000/svg" width="60" height="60" viewBox="0 0 24 24" fill="white" style="cursor: pointer;">
   <path d="M20 4H4C2.897 4 2 4.897 2 6v12c0 1.103.897 2 2 2h16c1.103 0 2-.897 2-2V6c0-1.103-.897-2-2-2zm0 2v.511l-8 5.014-8-5.014V6h16zm-16 12V9.489l7.385 4.625c.207.13.459.13.666 0L20 9.489V18H4z"/>
 </svg>
+
+<!-- Modal -->
+<div id="myModal" class="modal">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <p>Depositar en la cuenta: <br>123456789</p>
+    </div>
+</div>
         </div>
         <div class="buttons-container">
             <a class="button map-btn" href="https://maps.app.goo.gl/6jBvEXaP4MJhFkcL9" target="_blank">
