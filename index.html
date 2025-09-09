@@ -67,12 +67,13 @@
 
         .header {
             text-align: left;
-            margin-bottom: 60px;
+            margin-top: 13rem;
+            margin-left: 5rem;
         }
 
         .brandon {
-            font-family: 'Bebas Neue', sans-serif;
-            font-size: clamp(60px, 15vw, 92px);
+            font-family: 'AwesomeLathusca', sans-serif;
+            font-size: clamp(80px, 25vw, 100px);
             margin-bottom: 10px;
             letter-spacing: 4px;
             color: #ffffff;
@@ -80,12 +81,14 @@
             line-height: 1;
         }
 
-        .event-type {
-            font-family: 'Great Vibes', cursive;
-            font-size: clamp(24px, 8vw, 36px);
-            color: #ffffff;
-            margin-left: 5px;
-        }
+.event-type {
+    font-family: 'AnkoRegularItalic', serif;
+    font-size: clamp(24px, 8vw, 36px);
+    color: #ffffff;
+    margin-left: 5px;
+    letter-spacing: 2px; /* ajusta el valor a tu gusto */
+}
+
 
         .main-content {
             flex-grow: 1;
@@ -94,40 +97,41 @@
             justify-content: center;
             align-items: center;
             text-align: center;
-            margin: 40px 0;
         }
 
         .date {
-            font-family: 'Playfair Display', serif;
+    font-family: 'AnkoRegularItalic', serif;
             font-size: clamp(24px, 6vw, 32px);
-            margin-bottom: 15px;
+            margin-top: 9rem;
             color: #ffffff;
             letter-spacing: 1px;
         }
 
         .time {
-            font-family: 'Playfair Display', serif;
-            font-size: clamp(32px, 8vw, 48px);
+    font-family: 'AnkoRegularItalic', serif;
+            font-size: clamp(15px, 4vw, 28px);
             margin-bottom: clamp(20px, 5vw, 40px);
             color: #ffffff;
             letter-spacing: 2px;
         }
 
         .location {
-            font-family: 'Garamond', serif;
-            font-size: clamp(18px, 5vw, 24px);
+    font-family: 'AnkoRegularItalic', serif;
+            font-size: clamp(20px, 6vw, 30px);
             line-height: 1.6;
             margin-bottom: 30px;
             color: #ffffff;
         }
 
-        .venue {
-            font-family: 'Bebas Neue', sans-serif;
-            font-size: clamp(24px, 7vw, 36px);
-            margin-bottom: 12px;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-        }
+     .venue {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(16px, 3vw, 30px);
+    margin-bottom: 12px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    text-decoration: underline; /* esto subraya el texto */
+}
+
 
         .envelope {
             width: 100px;
@@ -136,9 +140,8 @@
         }
 
         .organizers {
-            font-family: 'Playfair Display', serif;
+            font-family: 'AnkoRegularItalic', serif;
             font-size: 20px;
-            margin-top: 60px;
             color: #ffffff;
         }
 
@@ -167,7 +170,6 @@
             display: flex;
             flex-direction: column;
             gap: clamp(10px, 3vw, 20px);
-            margin-top: clamp(20px, 5vw, 40px);
             width: 100%;
             max-width: 400px;
             margin-left: auto;
@@ -208,6 +210,22 @@
             background-color: #218838;
             transform: translateY(-2px);
         }
+        @font-face {
+    font-family: 'AwesomeLathusca';
+    src: url('fonts/AwesomeLathusca-Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'AnkoRegularItalic';
+    src: url('fonts/AnkoPersonalUse-RegularItalic.ttf') format('opentype');
+    font-weight: normal;
+    font-style: italic;
+}
+.location a {
+    color: inherit;          /* toma el color del contenedor, en tu caso blanco */
+}
+
     </style>
 </head>
 <body>
@@ -219,17 +237,22 @@
         <div class="main-content">
             <div class="date">Sábado 25 de Octubre</div>
             <div class="time">06:00 PM</div>
-            <div class="location">
-                <div class="venue">POOL PARTY EVENTOS</div>
-                <div>P.º del Acueducto 4000, Cd Satélite, 64960</div>
-                <div>Monterrey, N.L.</div>
-            </div>
+        <div class="location">
+    <a href="https://maps.app.goo.gl/6jBvEXaP4MJhFkcL9" target="_blank">
+        POOL PARTY EVENTOS<br>
+        Paseo del Acueducto 4000
+        Ciudad Satélite, 64960<br>
+        Monterrey, N.L.
+    </a>
+</div>
 
             <div class="organizers">
                 <div class="organizers-title">Organizan</div>
                 <div>Gerardo Garza y Rolando Treviño</div>
             </div>
-            <img src="https://cdn-icons-png.flaticon.com/512/3822/3822991.png" alt="Sobre" class="envelope">
+<svg class="envelope" xmlns="http://www.w3.org/2000/svg" width="60" height="60" viewBox="0 0 24 24" fill="white">
+  <path d="M20 4H4C2.897 4 2 4.897 2 6v12c0 1.103.897 2 2 2h16c1.103 0 2-.897 2-2V6c0-1.103-.897-2-2-2zm0 2v.511l-8 5.014-8-5.014V6h16zm-16 12V9.489l7.385 4.625c.207.13.459.13.666 0L20 9.489V18H4z"/>
+</svg>
         </div>
         <div class="buttons-container">
             <a class="button map-btn" href="https://maps.app.goo.gl/6jBvEXaP4MJhFkcL9" target="_blank">
