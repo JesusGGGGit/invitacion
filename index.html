@@ -406,24 +406,12 @@
                 }
             }
 
-            // Configuración del audio
-            const audio = document.getElementById('bgMusic');
-            const audioControl = document.getElementById('audioControl');
-            let hasInteracted = false;
-
-            // Detectar iOS
-            const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+            // Crear el elemento de audio
+            const audio = new Audio('song/song.mp3');
+            audio.loop = true;
             
-            // Inicializar audio
-            if (isIOS) {
-                // Configuración específica para iOS
-                audio.preload = "none";
-                audio.autoplay = false;
-            }
-            audio.load();
-            audio.pause();
-            audio.currentTime = 0;
-
+            const audioControl = document.getElementById('audioControl');
+            
             function updateIcon() {
                 const icon = audioControl.querySelector('svg');
                 if (audio.paused) {
@@ -433,105 +421,20 @@
                 }
             }
 
-            // Función que maneja la reproducción del audio
-            async function playAudio() {
-                try {
-                    // Asegurarse de que el audio esté cargado
-                    await audio.load();
-                    
-                    if (isIOS) {
-                        // En iOS, intentamos reproducir inmediatamente después de la interacción del usuario
-                        audio.currentTime = 0;
-                        await audio.play();
-                    } else {
-                        // Para otros dispositivos
-                        let playPromise = audio.play();
-                        if (playPromise !== undefined) {
-                            await playPromise;
-                        }
-                    }
-                    
-                    updateIcon();
-                } catch (error) {
-                    if (isIOS) {
-                        // Intentar una última vez en iOS con un pequeño retraso
-                        setTimeout(async () => {
-                            try {
-                                await audio.play();
-                                updateIcon();
-                            } catch (e) {
-                                updateIcon();
-                            }
-                        }, 100);
-                    } else {
-                        updateIcon();
-                    }
-                }
-            }
-
-            // Función que maneja el toggle del audio
-            async function toggleAudio(event) {
-                // Prevenir cualquier comportamiento por defecto
-                event.preventDefault();
-                event.stopPropagation();
-                
-                console.log('Estado actual del audio:', audio.paused ? 'pausado' : 'reproduciendo');
-                
+            function toggleAudio(e) {
+                e.preventDefault();
                 if (audio.paused) {
-                    await playAudio();
+                    audio.play();
                 } else {
                     audio.pause();
-                    console.log('Audio pausado manualmente');
-                    updateIcon();
                 }
+                updateIcon();
             }
 
-            // Manejar eventos de visibilidad de página
-            document.addEventListener('visibilitychange', function() {
-                if (document.hidden && !audio.paused) {
-                    audio.pause();
-                } else if (!document.hidden && hasInteracted && audio.paused && !audio.muted) {
-                    audio.play().catch(() => {});
-                }
-            });
-
-            // Manejar eventos de audio
-            audio.addEventListener('ended', function() {
-                if (!audio.paused) {
-                    audio.play().catch(() => {});
-                }
-            });
-
-            audio.addEventListener('play', function() {
-                updateIcon();
-            });
-
-            audio.addEventListener('pause', function() {
-                updateIcon();
-            });
-
-            // Eventos touch para dispositivos móviles
-            if (isIOS) {
-                // En iOS usamos touchstart para una respuesta más inmediata
-                audioControl.addEventListener('touchstart', function(e) {
-                    e.preventDefault();
-                    toggleAudio(e);
-                }, { passive: false });
-            } else {
-                audioControl.addEventListener('touchend', function(e) {
-                    e.preventDefault();
-                    toggleAudio(e);
-                });
-            }
-
-            audioControl.addEventListener('click', function(e) {
-                e.preventDefault();
-                toggleAudio(e);
-            });
-
-            // Detectar tipo de dispositivo
-            console.log('Tipo de dispositivo:', /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ? 'Móvil' : 'Desktop');
-
+            audioControl.addEventListener('click', toggleAudio);
+            audioControl.addEventListener('touchstart', toggleAudio, { passive: false });
+            
+            // Actualizar ícono inicial
             updateIcon();
         });
 
@@ -545,11 +448,7 @@
                     <path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/>
                 </svg>
             </button>
-            <audio id="bgMusic" preload="metadata" loop playsinline webkit-playsinline="true">
-                <source src="song/song.mp3" type="audio/mpeg">
-                <source src="song/song.mp3" type="audio/mp3">
-                Tu navegador no soporta el elemento de audio.
-            </audio>
+            <!-- El audio se creará dinámicamente via JavaScript -->
         </div>
         <div class="header">
             <div class="brandon">BRANDON</div>
