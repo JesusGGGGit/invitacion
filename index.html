@@ -19,6 +19,8 @@
 
         html, body {
             height: 100%;
+                            overflow: hidden; 
+
         }
 
         body {
@@ -28,11 +30,13 @@
             background-color: #f5f5f5;
             padding: 0;
             margin: 0;
+                overflow: hidden; 
+
         }
 
         .invitation {
-            width: 100vw;
-            height: 100vh;
+            width: 100dvw;
+            height: 100dvh;
             background-color: #000000;
             background-image: url('fondo.png');
             background-position: center;
@@ -201,14 +205,18 @@
         }
 
         .buttons-container {
-            display: flex;
-            flex-direction: column;
-            gap: clamp(10px, 3vw, 20px);
-            width: 100%;
-            max-width: 400px;
-            margin-left: auto;
-            margin-right: auto;
-        }
+    bottom: 20px;      
+    display: flex;
+    flex-direction: column;
+    gap: clamp(10px, 3vw, 20px);
+    width: 100%;
+    max-width: 400px;
+    margin-left: auto;
+    margin-right: auto;
+    z-index: 10;
+    margin-bottom: 40px;
+}
+
 
         .button {
             display: block;
@@ -286,7 +294,7 @@
     font-style: italic;
 }
 .location a {
-    color: inherit;          /* toma el color del contenedor, en tu caso blanco */
+    color: inherit;          
 }
 
 /* Estilos para el Modal */
@@ -333,14 +341,15 @@
     line-height: 1.5;
 }
 
-        /* Estilos personalizados para el reproductor de audio */
-        .audio-controls-container {
-            position: sticky;
-            top: 20px;
-            margin-right: calc(100% - 60px);
-            width: 40px;
-            z-index: 1000;
-        }
+       .audio-controls-container {
+    position: sticky; 
+    top: 20px;        
+    right: 20px;       
+    width: 40px;
+    height: 40px;
+    z-index: 1000;
+}
+
 
         .audio-control-button {
             width: 40px;
@@ -370,13 +379,13 @@
 
     </style>
     <script>
-        // Funciones para el Modal y Audio
+        // Función para abrir el modal
         function openModal() {
             document.getElementById("myModal").style.display = "block";
         }
 
-        // Cuando el documento esté listo
-        document.addEventListener('DOMContentLoaded', function() {
+        window.addEventListener('DOMContentLoaded', function() {
+            // Configuración del modal
             var modal = document.getElementById("myModal");
             var span = document.getElementsByClassName("close")[0];
 
@@ -391,40 +400,92 @@
                     modal.style.display = "none";
                 }
             }
-        });
 
-        // Funciones para el control de audio
-        window.addEventListener('DOMContentLoaded', function() {
+            // Configuración del audio
             const audio = document.getElementById('bgMusic');
             const audioControl = document.getElementById('audioControl');
+            let hasInteracted = false;
 
-            // Función para actualizar el ícono
+            // Inicializar audio
+            audio.load(); // Asegurarse de que el audio está cargado
+            audio.muted = true;
+            audio.pause();
+
             function updateIcon() {
                 const icon = audioControl.querySelector('svg');
-                if (audio.muted) {
+                if (audio.paused || audio.muted) {
                     icon.innerHTML = '<path d="M16.5 12c0-1.77-1.02-3.29-2.5-4.03v2.21l2.45 2.45c.03-.2.05-.41.05-.63zm2.5 0c0 .94-.2 1.82-.54 2.64l1.51 1.51C20.63 14.91 21 13.5 21 12c0-4.28-2.99-7.86-7-8.77v2.06c2.89.86 5 3.54 5 6.71zM4.27 3L3 4.27 7.73 9H3v6h4l5 5v-6.73l4.25 4.25c-.67.52-1.42.93-2.25 1.18v2.06c1.38-.31 2.63-.95 3.69-1.81L19.73 21 21 19.73l-9-9L4.27 3zM12 4L9.91 6.09 12 8.18V4z"/>';
                 } else {
                     icon.innerHTML = '<path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/>';
                 }
             }
 
-            // Intenta reproducir el audio automáticamente
-            const playPromise = audio.play();
-            if (playPromise !== undefined) {
-                playPromise.catch(function(error) {
-                    console.log("Reproducción automática bloqueada por el navegador");
-                });
+            // Función que maneja la reproducción del audio
+            async function playAudio() {
+                try {
+                    audio.muted = false;
+                    await audio.play();
+                    updateIcon();
+                } catch (error) {
+                    console.log("Error al reproducir:", error);
+                    audio.muted = true;
+                    updateIcon();
+                }
             }
 
-            // Toggle mute al hacer clic
-            audioControl.addEventListener('click', function() {
-                audio.muted = !audio.muted;
+            // Función que asegura que el audio solo se activa tras interacción
+            async function toggleAudio() {
+                if (!hasInteracted) {
+                    hasInteracted = true;
+                }
+
+                if (audio.paused || audio.muted) {
+                    await playAudio();
+                } else {
+                    audio.pause();
+                    audio.muted = true;
+                    updateIcon();
+                }
+            }
+
+            // Manejar eventos de visibilidad de página
+            document.addEventListener('visibilitychange', function() {
+                if (document.hidden && !audio.paused) {
+                    audio.pause();
+                } else if (!document.hidden && hasInteracted && audio.paused && !audio.muted) {
+                    audio.play().catch(() => {});
+                }
+            });
+
+            // Manejar eventos de audio
+            audio.addEventListener('ended', function() {
+                if (!audio.paused) {
+                    audio.play().catch(() => {});
+                }
+            });
+
+            audio.addEventListener('play', function() {
                 updateIcon();
             });
-            
-            // Inicializar el ícono
+
+            audio.addEventListener('pause', function() {
+                updateIcon();
+            });
+
+            // Eventos touch para dispositivos móviles
+            audioControl.addEventListener('touchend', function(e) {
+                e.preventDefault(); // Prevenir comportamiento por defecto
+                toggleAudio();
+            });
+
+            audioControl.addEventListener('click', function(e) {
+                e.preventDefault();
+                toggleAudio();
+            });
+
             updateIcon();
         });
+
     </script>
 </head>
 <body>
@@ -435,8 +496,8 @@
                     <path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/>
                 </svg>
             </button>
-            <audio id="bgMusic" autoplay loop style="display: none;">
-                <source src="song/song.mp3" type="audio/mp3">
+            <audio id="bgMusic" preload="auto" loop playsinline style="display: none;">
+                <source src="song/song.mp3" type="audio/mpeg">
                 Tu navegador no soporta el elemento de audio.
             </audio>
         </div>
