@@ -69,13 +69,13 @@
 
         .header {
             text-align: left;
-            margin-top: 13rem;
+            margin-top: 3rem;
             margin-left: 5rem;
         }
 
         @media (max-width: 480px) {
             .header {
-                margin-top: 8rem;
+                margin-top: 3rem;
                 margin-left: 2rem;
             }
         }
@@ -122,7 +122,8 @@
     font-size: clamp(24px, 8vw, 36px);
     color: #ffffff;
     margin-left: 5px;
-    letter-spacing: 2px; /* ajusta el valor a tu gusto */
+    letter-spacing: 2px; 
+    margin-bottom: 2rem;
 }
 
 
@@ -138,7 +139,7 @@
         .date {
     font-family: 'AnkoRegularItalic', serif;
             font-size: clamp(24px, 6vw, 32px);
-            margin-top: 9rem;
+            margin-top: 3rem;
             color: #ffffff;
             letter-spacing: 1px;
         }
@@ -227,6 +228,13 @@
     margin-bottom: 40px;
 }
 
+.date-inline, .time-inline {
+  display: inline;
+  font-family: 'AnkoRegularItalic', serif;
+  font-size: clamp(20px, 6vw, 32px);
+  color: #ffffff;
+  letter-spacing: 1px;
+}
 
         .button {
             display: block;
@@ -387,8 +395,8 @@
         }
 .date-time a {
     text-decoration: underline;
-    color: inherit; /* mantiene el color blanco de tu diseño */
-    cursor: pointer; /* cambia el cursor al pasar sobre el link */
+    color: inherit; 
+    cursor: pointer;
 }
 
 
@@ -462,26 +470,58 @@
                     <path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/>
                 </svg>
             </button>
-            <!-- El audio se creará dinámicamente via JavaScript -->
         </div>
         <div class="header">
             <div class="brandon">BRANDON</div>
             <div class="event-type">Despedida de Soltero</div>
         </div>
         <div class="main-content">
-           <div class="date-time">
-  <a href="https://www.google.com/calendar/render?action=TEMPLATE&text=Despedida+de+Soltero+Brandon&dates=20251025T180000/20251025T200000&details=Pool+Party+Eventos,+Paseo+del+Acueducto+4000,+Monterrey&location=Paseo+del+Acueducto+4000,+Monterrey&sf=true&output=xml" target="_blank" style="color: inherit;">
-    <div class="date">Sábado 25 de Octubre</div>
-    <div class="time">06:00 PM</div>
+        <div class="date-time">
+  <a href="#" onclick="openCalendarOptions(event)" style="text-decoration: underline; cursor: pointer;">
+    <span class="date-inline">Sábado 25 Oct&nbsp;</span>
+    <span class="time-inline">18:00 HORAS</span>
   </a>
 </div>
+
+<!-- Modal Calendario -->
+<div id="calendarModal" class="modal">
+  <div class="modal-content">
+    <span class="close">&times;</span>
+    <p>Agregar al calendario:</p>
+    <div style="display:flex; flex-direction:column; gap:10px; margin-top:15px;">
+      <!-- Google Calendar -->
+      <a class="button map-btn" target="_blank" 
+         href="https://www.google.com/calendar/render?action=TEMPLATE&text=Despedida+de+Soltero+Brandon&dates=20251025T180000/20251025T200000&details=Pool+Party+Eventos,+Paseo+del+Acueducto+4000,+Monterrey&location=Paseo+del+Acueducto+4000,+Monterrey&sf=true&output=xml">
+        Google Calendar
+      </a>
+
+      <!-- Outlook / Apple (ICS) -->
+      <a class="button confirm-btn" href="evento.ics" download>
+        Outlook / Apple Calendar
+      </a>
+    </div>
+  </div>
+</div>
+
+<script>
+function openCalendarOptions(e){
+  e.preventDefault();
+  document.getElementById("calendarModal").style.display = "block";
+}
+</script>
+
+
 
         <div class="location">
     <a href="https://maps.app.goo.gl/6jBvEXaP4MJhFkcL9" target="_blank">
         POOL PARTY EVENTOS<br>
         Paseo del Acueducto 4000
         Ciudad Satélite, 64960<br>
-        Monterrey, N.L.
+        Monterrey, N.L.  <a href="https://maps.app.goo.gl/6jBvEXaP4MJhFkcL9" target="_blank">
+  <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="currentColor" viewBox="0 0 384 512">
+    <path d="M168 0C75 0 0 75 0 168c0 87.3 130.5 239.3 163.8 275.6a24 24 0 0 0 36.3 0C213.5 407.3 344 255.3 344 168 344 75 269 0 168 0zm0 240a72 72 0 1 1 0-144 72 72 0 0 1 0 144z"/>
+  </svg>
+</a>
     </a>
 </div>
 
@@ -508,16 +548,18 @@
 
             <!-- Modal CLABE -->
             <div id="clabeModal" class="modal">
-                <div class="modal-content">
-                    <span class="close">&times;</span>
-                    <p>Cuenta CLABE: <br>123456789012345678</p>
-                </div>
-            </div>
+  <div class="modal-content">
+    <span class="close">&times;</span>
+    <p style="word-wrap: break-word; overflow-wrap: break-word; white-space: normal;">
+      Cuenta CLABE: <br>123456789012345678
+    </p>
+  </div>
+</div>
+
         </div>
         <div class="buttons-container">
-            <a class="button map-btn" href="https://maps.app.goo.gl/6jBvEXaP4MJhFkcL9" target="_blank">
-                Ver mapa
-            </a>
+         
+
             <a class="button confirm-btn" href="https://wa.me/5218182808866?text=Confirmo%20mi%20asistencia%20a%20la%20despedida%20de%20soltero" target="_blank">
                 Confirmar invitación
             </a>
