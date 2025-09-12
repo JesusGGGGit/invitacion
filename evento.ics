@@ -21,7 +21,7 @@ BEGIN:VEVENT
 SUMMARY:Despedida de Soltero Brandon
 DTSTART;TZID=America/Mexico_City:20251025T180000
 DTEND;TZID=America/Mexico_City:20251025T235900
-LOCATION:Paseo del Acueducto 4000, Monterrey, N.L.
+LOCATION:https://maps.app.goo.gl/6jBvEXaP4MJhFkcL9
 DESCRIPTION:Pool Party Eventos
 BEGIN:VALARM
 TRIGGER:-PT2H
